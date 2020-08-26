@@ -262,7 +262,11 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-    prompt_segment blue black '\w'
+  if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+    gn=`git rev-parse --show-toplevel`
+    bn=`basename $gn`
+    prompt_segment blue black $bn
+  fi
 }
 
 # Status:
